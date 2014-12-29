@@ -1,7 +1,10 @@
 Journal.Routers.Posts = Backbone.Router.extend({
   routes: {
     "": "index",
-    "posts/:id": "show"
+    "posts": "index",
+    "posts/new": "new",
+    "posts/:id": "show",
+    "posts/:id/edit": "edit"
   },
   initialize: function (options) {
     this.$el = $(options.el)
@@ -19,5 +22,19 @@ Journal.Routers.Posts = Backbone.Router.extend({
     var show = new Journal.Views.PostsShow({ model: post});
     show.render();
     this.$el.html(show.$el);
+  },
+
+  edit: function (id) {
+    var post = this.collection.getOrFetch(id);
+    var form = new Journal.Views.PostsForm({ model: post});
+    form.render();
+    this.$el.html(form.$el);
+  },
+
+  new: function () {
+    var post = new Journal.Models.Post();
+    var form = new Journal.Views.PostsForm({model: post, collection: this.collection});
+    form.render();
+    this.$el.html(form.$el);
   }
 });
