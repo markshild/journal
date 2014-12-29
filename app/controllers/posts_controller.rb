@@ -1,4 +1,14 @@
 class PostsController < ApplicationController
+  def show
+    @post = Post.find(params[:id])
+    render json: @post.to_json
+  end
+
+  def index
+    @posts = Post.all
+    render json: @posts.to_json
+  end
+  
   def create
     @post = Post.new(post_params)
     if @post.save
