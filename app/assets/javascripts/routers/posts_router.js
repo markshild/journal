@@ -15,8 +15,7 @@ Journal.Routers.Posts = Backbone.Router.extend({
 
   index: function () {
     var index = new Journal.Views.PostsIndex({ collection: this.collection});
-    index.render();
-    this.$sidebar.html(index.$el);
+    this.$sidebar.html(index.render().$el);
   },
 
   show: function (id) {
@@ -28,7 +27,7 @@ Journal.Routers.Posts = Backbone.Router.extend({
 
   edit: function (id) {
     var post = this.collection.getOrFetch(id);
-    var form = new Journal.Views.PostsForm({ model: post});
+    var form = new Journal.Views.PostsForm({ model: post, collection: this.collection});
     form.render();
     this.$content.html(form.$el);
   },

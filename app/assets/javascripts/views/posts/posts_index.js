@@ -16,12 +16,12 @@ Journal.Views.PostsIndex = Backbone.View.extend({
     var $target = $(event.target);
     var id = $target.data('id');
     var model = this.collection.get(id);
-    this.collection.remove(model);
+    model.destroy();
   },
 
   initialize: function (options) {
     this.listenTo(this.collection,
-      'remove add reset change:title', this.render)
+      'remove add reset change:title sync', this.render)
   }
 
 });

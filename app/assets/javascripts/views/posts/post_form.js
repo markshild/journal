@@ -6,8 +6,8 @@ Journal.Views.PostsForm = Backbone.View.extend({
     "submit .post-form": "updatePost"
   },
 
-  render: function (errors) {
-    var content = this.template({post: this.model, errors: errors});
+  render: function () {
+    var content = this.template({post: this.model});
     this.$el.html(content);
     return this;
   },
@@ -24,13 +24,14 @@ Journal.Views.PostsForm = Backbone.View.extend({
         Backbone.history.navigate("posts/"+this.model.id, {trigger: true});
       }.bind(this),
       error: function (modul, resp) {
-        this.render(resp.responseJSON.errors);
+        this.model.validationError = resp.responseJSON.errors;
+        this.render();
       }.bind(this)
     });
   },
 
   initialize: function (options) {
-
+    this.listenTo(this.model, 'sync', this.render);
   }
 
   });
