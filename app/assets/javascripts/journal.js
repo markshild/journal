@@ -8,7 +8,8 @@ window.Journal = {
     collection.fetch({
       success: function () {
         this.router = new Journal.Routers.Posts({
-          el: 'body',
+          divSidebar: 'body div.sidebar',
+          divContent: 'body div.content',
           collection: collection
         });
         Backbone.history.start();
