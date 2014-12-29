@@ -4,7 +4,16 @@ window.Journal = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Murk!');
+    var collection = new Journal.Collections.Posts();
+    collection.fetch({
+      success: function () {
+        this.router = new Journal.Routers.Posts({
+          el: 'body',
+          collection: collection
+        });
+        Backbone.history.start();
+      }.bind(this)
+    })
   }
 };
 
